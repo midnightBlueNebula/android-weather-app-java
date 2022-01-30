@@ -21,6 +21,9 @@ public class MainActivity extends AppCompatActivity {
         TextView city = findViewById(R.id.cityName);
         TextView degree = findViewById(R.id.degree);
 
+        city.setText("ankara");
+        WeatherAdapter.adapter("ankara", degree, image);
+
         search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
