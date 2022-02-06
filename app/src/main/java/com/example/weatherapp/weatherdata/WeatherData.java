@@ -5,6 +5,8 @@ import android.os.Build;
 import android.os.StrictMode;
 import android.util.Log;
 
+import androidx.databinding.BindingAdapter;
+
 import com.example.weatherapp.BuildConfig;
 
 import org.json.JSONArray;
@@ -29,8 +31,8 @@ public class WeatherData {
     StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
 
     private String weather;
-    private int degree;
-    private final String apiKey = "secret";
+    private String degree;
+    private final String apiKey = "";
     private String requestStr = "https://api.openweathermap.org/data/2.5/weather";
     private String options;
 
@@ -45,7 +47,7 @@ public class WeatherData {
         try {
             JSONObject json = readJsonFromUrl(requestStr);
             JSONObject main = (JSONObject) json.get("main");
-            degree = (int) Math.round(main.getDouble("temp") - 273.15);
+            degree = "" + (int) Math.round(main.getDouble("temp") - 273.15) + "°C";
 
             JSONObject weatherJson = (JSONObject) json.getJSONArray("weather").get(0);
             weather = weatherJson.getString("main");
@@ -60,7 +62,7 @@ public class WeatherData {
         return weather;
     }
 
-    public int getDegree() {
+    public String getDegree() {
         return degree;
     }
 

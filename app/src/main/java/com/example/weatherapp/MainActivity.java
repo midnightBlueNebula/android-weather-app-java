@@ -6,29 +6,33 @@ import android.widget.SearchView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 
-import com.example.weatherapp.weatherdata.WeatherAdapter;
+import com.example.weatherapp.databinding.ActivityMainBinding;
+import com.example.weatherapp.weatherdata.WeatherData;
 
 public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+
+        ActivityMainBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+        WeatherData data = new WeatherData("Ankara");
+        binding.setData(data);
 
         SearchView search = findViewById(R.id.searchCity);
         ImageView image = findViewById(R.id.weatherIcon);
         TextView city = findViewById(R.id.cityName);
-        TextView degree = findViewById(R.id.degree);
 
-        city.setText("ankara");
-        WeatherAdapter.adapter("ankara", degree, image);
+
 
         search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 city.setText(query);
-                WeatherAdapter.adapter(query, degree, image);
+                WeatherData data = new WeatherData(query);
+                binding.setData(data);
                 return false;
             }
 
